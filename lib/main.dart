@@ -3,7 +3,7 @@ import 'package:fitness_app/elements/buttons.dart';
 import 'package:fitness_app/models/exercise.dart';
 import 'package:fitness_app/models/workout.dart';
 import 'package:flutter/material.dart';
-// import 'Repo.dart';
+import "elements/forms.dart";
 
 void main() => runApp(MyApp());
 
@@ -78,39 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
             index: _currentIndex,
             children: <Widget>[
               CircleButton(text: "test"),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    TextFormField(
-                      validator: (val) {
-                        if (val == "1") {
-                          return null;
-                        }
-                        return "Empty String";
-                      },
-                      onSaved: (val) {
-                        print(val);
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: RaisedButton(
-                        child: Text('submit'),
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            var val = _formKey.currentState;
-                            print(val.toString());
-                            _formKey.currentState.save();
-                          } else {
-                            print("error found");
-                          }
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              )
+              ExerciseInputForm()
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
