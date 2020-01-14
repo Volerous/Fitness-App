@@ -10,8 +10,8 @@ class Exercise {
   Weight weight;
   @ManyToMany(WorkoutExercisePivotBean, WorkoutBean)
   List<Workout> workouts;
-  int sets;
-  int reps;
+  int sets = 1;
+  int reps = 1;
   @IgnoreColumn()
   List<bool> completed;
   Exercise(

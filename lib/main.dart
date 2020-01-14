@@ -1,5 +1,7 @@
 import 'package:fitness_app/Repo.dart';
 import 'package:fitness_app/elements/buttons.dart';
+import 'package:fitness_app/elements/forms.dart';
+import 'package:fitness_app/elements/lists.dart';
 import 'package:fitness_app/models/exercise.dart';
 import 'package:fitness_app/models/workout.dart';
 import 'package:flutter/material.dart';
@@ -58,10 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ..exercises = List<Exercise>()
       ..name = "Test New Workout"
       ..rotation = "A";
-
-    this.repo.getAllWorkouts().then((wos) {
-      print(wos[0]);
-    });
   }
 
   @override
@@ -77,55 +75,31 @@ class _MyHomePageState extends State<MyHomePage> {
           body: IndexedStack(
             index: _currentIndex,
             children: <Widget>[
-              CircleButton(text: "test"),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    TextFormField(
-                      validator: (val) {
-                        if (val == "1") {
-                          return null;
-                        }
-                        return "Empty String";
-                      },
-                      onSaved: (val) {
-                        print(val);
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: RaisedButton(
-                        child: Text('submit'),
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            var val = _formKey.currentState;
-                            print(val.toString());
-                            _formKey.currentState.save();
-                          } else {
-                            print("error found");
-                          }
-                        },
-                      ),
-                    )
-                  ],
+              WorkoutList(workouts: repo.getAllWorkouts()),
+              Center(
+                child: RaisedButton(
+                  child: Text("add new Exercise"),
+                  onPressed: () {
+                    repo.addTestWorkout();
+                  },
                 ),
-              )
+              ),
+              WorkoutForm(formKey: _formKey, workout: new Workout()),
             ],
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            items: <BottomNavigationBarItem>[
-              new BottomNavigationBarItem(
-                  title: Text("test"), icon: Icon(Icons.today)),
-              new BottomNavigationBarItem(
-                  title: Text("test2"), icon: Icon(Icons.today)),
-            ],
-            onTap: (i) {
-              setState(() {
-                _currentIndex = i;
-              });
-            },
+          bottomNavigationBar: BottomAppBar(
+            child: new Row(
+              children: <Widget>[
+                IconButton(icon:Icon(Icons.today), tooltip: "Text", onPressed: () {},),
+                IconButton(icon:Icon(Icons.today), tooltip: "Text", onPressed: () {},),
+                IconButton(icon:Icon(Icons.today), tooltip: "Text", onPressed: () {},),
+              ],
+            ),
+            // onTap: (i) {
+            //   setState(() {
+            //     _currentIndex = i;
+            //   });
+            // },
           ),
         );
       },

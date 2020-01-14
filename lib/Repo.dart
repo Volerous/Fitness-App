@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:jaguar_query_sqflite/jaguar_query_sqflite.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as path;
@@ -24,6 +26,13 @@ class Repo {
     await _exerciseBean.createTable(ifNotExists: true);
     print(this._workoutBean);
     await _workoutBean.createTable(ifNotExists: true);
+  }
+  void addTestWorkout() async {
+    Workout test = new Workout()
+      ..name= "Test ${Random().nextInt(100)}"
+      ..rotation = "${String.fromCharCode(Random().nextInt(3)+83)}"
+      ..exercises = new List<Exercise>();
+    _workoutBean.upsert(test);
   }
   // Workout functions
   Future<List<Workout>> getAllWorkouts() async => _workoutBean.getAll();

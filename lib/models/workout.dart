@@ -12,6 +12,13 @@ class Workout {
   String rotation;
   Workout({this.name, this.exercises, this.rotation});
   String toString() => "Workout($name, $rotation, $exercises)";
+  int compareForSort(Workout b) {
+    if (this.name == b.name) {
+      return this.rotation.compareTo(b.rotation);
+    } else {
+      return this.name.toLowerCase().compareTo(b.name.toLowerCase());
+    }
+  }
 }
 
 class WorkoutExercisePivot {
