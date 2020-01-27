@@ -36,13 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Repo repo;
   int _currentIndex = 0;
   final _formKey = GlobalKey<FormState>();
-  // _MyHomePageState() {
-  //   print("running");
-  //   this.repo = new Repo();
-  //   this.repo.initDone.then((i) {
-  //     print("test");
-  //   });
-  // }
+
   @override
   void initState() {
     print(this.repo);
@@ -62,6 +56,16 @@ class _MyHomePageState extends State<MyHomePage> {
       ..rotation = "A";
   }
 
+  Function setCurrentIndex(int idx) {
+    void setIndexFunction() {
+      return setState(() {
+        _currentIndex = idx;
+      });
+    }
+
+    return setIndexFunction;
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<void>(
@@ -75,7 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
           body: IndexedStack(
             index: _currentIndex,
             children: <Widget>[
-              WorkoutList(workouts: repo.getAllWorkouts()),
+              // Text("Test"),
+              // WorkoutList(workouts: repo.getAllWorkouts()),
+              MetricDropDown(),
               Center(
                 child: RaisedButton(
                   child: Text("add new Exercise"),
@@ -87,22 +93,50 @@ class _MyHomePageState extends State<MyHomePage> {
               WorkoutForm(formKey: _formKey, workout: new Workout()),
             ],
           ),
-          bottomNavigationBar: BottomAppBar(
-            child: new Row(
-              children: <Widget>[
-                IconButton(icon:Icon(Icons.today), tooltip: "Text", onPressed: () {},),
-                IconButton(icon:Icon(Icons.today), tooltip: "Text", onPressed: () {},),
-                IconButton(icon:Icon(Icons.today), tooltip: "Text", onPressed: () {},),
-              ],
-            ),
-            // onTap: (i) {
-            //   setState(() {
-            //     _currentIndex = i;
-            //   });
-            // },
+          bottomNavigationBar: BottomNavigationBar(
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.today,
+                  color: Colors.black,
+                ),
+                title: Text(
+                  "Test",
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.today,
+                  color: Colors.black,
+                ),
+                title: Text(
+                  "Test",
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.today,
+                  color: Colors.black,
+                ),
+                title: Text(
+                  "Test",
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ],
+            currentIndex: _currentIndex,
+            onTap: _onBotNavTapped,
           ),
         );
       },
     );
+  }
+
+  void _onBotNavTapped(int idx) {
+    setState(() {
+      _currentIndex = idx;
+    });
   }
 }
