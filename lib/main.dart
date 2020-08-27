@@ -81,7 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               // Text("Test"),
               // WorkoutList(workouts: repo.getAllWorkouts()),
-              MetricDropDown(),
+              // MetricDropDown(),
+              ExerciseTile(),
               Center(
                 child: RaisedButton(
                   child: Text("add new Exercise"),

@@ -38,6 +38,8 @@ class _MetricDropDownState extends State<MetricDropDown> {
   Widget build(BuildContext context) {
     return DropdownButton<String>(
       value: dropDownValue,
+      iconSize: 0.0,
+      underline: Container(),
       items: <String>["kg", "sec", "%"].map((String i) {
         return DropdownMenuItem(
           value: i,
